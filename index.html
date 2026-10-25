@@ -7,29 +7,26 @@
 <meta name="theme-color" content="#f8f3fc">
 <title>My Study Space 🌷</title>
 <style>
-:root {
+:root{
   --bg:#f8f3fc;
-  --card:#fff;
   --purple:#a68bd4;
   --deep:#57436f;
   --muted:#998ba8;
   --line:#eee7f4;
-  --pink:#f7dce8;
-  --mint:#dcefe7;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial,"Segoe UI",sans-serif;
   background:var(--bg);
   color:var(--deep);
+  font-family:Arial,"Segoe UI",sans-serif;
 }
 button,input,select{font:inherit}
 button{cursor:pointer}
 .app{
   width:min(100%,480px);
-  min-height:100dvh;
   margin:auto;
+  min-height:100dvh;
   padding:22px 17px 100px;
 }
 .page{display:none}
@@ -42,12 +39,15 @@ button{cursor:pointer}
 }
 h1{font-size:25px;margin:9px 0}
 h2{font-size:17px;margin:0 0 15px}
-h3{font-size:14px;margin:0 0 9px}
-.muted{color:var(--muted);font-size:13px}
+.muted{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
+}
 .card{
-  background:var(--card);
-  padding:19px;
+  background:white;
   border-radius:23px;
+  padding:19px;
   margin:16px 0;
   box-shadow:0 8px 28px #6f5b8410;
 }
@@ -55,28 +55,33 @@ h3{font-size:14px;margin:0 0 9px}
   background:linear-gradient(135deg,#f5e5f2,#e9e2fa);
   border-radius:25px;
   padding:24px;
-  position:relative;
-  overflow:hidden;
 }
-.hero:after{
-  content:"🌷";
-  position:absolute;
-  right:16px;
-  bottom:10px;
-  font-size:65px;
-  opacity:.7;
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
-.hero p{max-width:240px;line-height:1.5}
+.btn{
+  border:0;
+  border-radius:14px;
+  padding:12px 15px;
+  background:var(--purple);
+  color:white;
+  font-weight:700;
+}
+.btn.light{background:#f1eaf8;color:#8569aa}
+.btn.full{width:100%}
+.btn.small{padding:8px 11px;font-size:12px}
 .progress-track{
   height:9px;
   background:#eee7f4;
   border-radius:20px;
   overflow:hidden;
-  margin:14px 0;
+  margin:13px 0;
 }
 .progress-fill{
   height:100%;
-  width:0%;
   background:var(--purple);
   border-radius:20px;
   transition:width .3s;
@@ -99,59 +104,138 @@ h3{font-size:14px;margin:0 0 9px}
 .task{
   display:flex;
   align-items:center;
-  gap:11px;
-  padding:13px 2px;
+  gap:10px;
+  padding:12px 2px;
   border-bottom:1px solid var(--line);
 }
 .task:last-child{border:0}
-.task input{accent-color:var(--purple);width:18px;height:18px}
-.task span{flex:1;font-size:13px}
-.task.done span{text-decoration:line-through;color:#aaa}
-.dot{width:7px;height:29px;border-radius:10px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.btn{
-  border:0;
-  border-radius:14px;
-  padding:13px 16px;
-  font-weight:700;
-  background:var(--purple);
-  color:white;
+.task input[type=checkbox]{
+  accent-color:var(--purple);
+  width:18px;
+  height:18px;
+  flex-shrink:0;
 }
-.btn.light{background:#f1eaf8;color:#8569aa}
-.btn.full{width:100%}
-.form-row{display:flex;gap:8px;margin-top:12px}
-.form-row input,.form-row select{
+.task-name{
+  flex:1;
+  font-size:13px;
   min-width:0;
-  padding:12px;
+  overflow-wrap:anywhere;
+}
+.task.done .task-name{
+  text-decoration:line-through;
+  color:#aaa;
+}
+.dot{
+  width:6px;
+  height:27px;
+  border-radius:9px;
+  flex-shrink:0;
+}
+.delete{
+  border:0;
+  background:#fff0f4;
+  color:#c78a9d;
+  border-radius:10px;
+  min-width:34px;
+  min-height:34px;
+  font-size:21px;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.form-row{display:flex;gap:8px;margin-top:10px}
+.form-row input,.form-row select,.field{
+  min-width:0;
   border:1px solid var(--line);
-  border-radius:12px;
   background:#fcfaff;
   color:var(--deep);
+  padding:12px;
+  border-radius:12px;
 }
 .form-row input{flex:1;width:0}
-.form-row select{width:120px}
-.tabs{
+.form-row select{width:125px}
+.field{width:100%;margin:6px 0}
+.week-head{
   display:flex;
-  gap:6px;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.week-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+  margin-top:16px;
+}
+.day{
+  border:0;
+  border-radius:13px;
+  background:#f5effa;
+  color:#8e7ca2;
+  padding:10px 2px;
+  font-size:11px;
+  min-width:0;
+}
+.day strong{
+  display:block;
+  margin-top:7px;
+  font-size:15px;
+}
+.day.selected{background:var(--purple);color:white}
+.day.today{
+  outline:2px solid #d8c7ec;
+  outline-offset:2px;
+}
+.section-tabs{
+  display:flex;
+  gap:5px;
+  background:#f3edf9;
   padding:5px;
   border-radius:15px;
-  background:#f3edf9;
-  margin:20px 0;
+  margin:18px 0;
 }
-.tabs button{
+.section-tabs button{
   flex:1;
   border:0;
   border-radius:11px;
+  padding:12px 5px;
   background:transparent;
   color:#9c8baa;
-  padding:12px 5px;
 }
-.tabs button.selected{
+.section-tabs button.selected{
   background:white;
   color:#7c60ac;
   font-weight:700;
-  box-shadow:0 3px 10px #8b71a018;
 }
+.topic{
+  border-bottom:1px solid var(--line);
+  padding:13px 0;
+}
+.topic:last-child{border:0}
+.topic-title{
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+.topic-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.topic-actions select{
+  flex:1;
+  min-width:0;
+  border:1px solid var(--line);
+  padding:9px;
+  border-radius:10px;
+  background:#faf7fd;
+  color:var(--deep);
+  font-size:12px;
+}
+.subject-progress{margin:15px 0}
+.subject-progress .progress-track{margin:7px 0}
 .timer-circle{
   width:min(270px,100%);
   aspect-ratio:1;
@@ -163,10 +247,7 @@ h3{font-size:14px;margin:0 0 9px}
   height:100%;
   transform:rotate(-90deg);
 }
-.timer-circle circle{
-  fill:none;
-  stroke-width:11;
-}
+.timer-circle circle{fill:none;stroke-width:11}
 .timer-circle .track{stroke:#f0eaf7}
 .timer-circle .fill{
   stroke:var(--purple);
@@ -184,24 +265,21 @@ h3{font-size:14px;margin:0 0 9px}
 .time{
   font-size:54px;
   font-weight:700;
-  letter-spacing:-2px;
   font-variant-numeric:tabular-nums;
 }
 .timer-buttons{display:flex;gap:9px}
 .timer-buttons .btn{flex:1}
 .notice{
-  font-size:12px;
   text-align:center;
   color:var(--muted);
+  font-size:12px;
   margin-top:16px;
-  line-height:1.5;
 }
 .bar-chart{
   display:flex;
   align-items:flex-end;
   gap:8px;
   height:155px;
-  padding-top:12px;
 }
 .bar-wrap{
   flex:1;
@@ -239,7 +317,6 @@ h3{font-size:14px;margin:0 0 9px}
   border-bottom:1px solid var(--line);
   font-size:13px;
 }
-.history-item:last-child{border:0}
 .nav{
   position:fixed;
   bottom:0;
@@ -248,7 +325,7 @@ h3{font-size:14px;margin:0 0 9px}
   width:min(100%,480px);
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  background:#fff;
+  background:white;
   border-top:1px solid var(--line);
   padding:10px 5px max(10px,env(safe-area-inset-bottom));
   z-index:5;
@@ -261,7 +338,11 @@ h3{font-size:14px;margin:0 0 9px}
   padding:6px 0;
 }
 .nav button.active{color:#8565b9;font-weight:700}
-.nav .ico{display:block;font-size:20px;margin-bottom:5px}
+.nav .ico{
+  display:block;
+  font-size:20px;
+  margin-bottom:5px;
+}
 .modal{
   position:fixed;
   inset:0;
@@ -286,6 +367,7 @@ h3{font-size:14px;margin:0 0 9px}
   .card{padding:15px}
   .time{font-size:46px}
   .form-row{flex-wrap:wrap}
+  .form-row select{width:100%}
 }
 </style>
 </head>
@@ -293,10 +375,10 @@ h3{font-size:14px;margin:0 0 9px}
 
 <div class="app">
 
-<!-- ANA SAYFA -->
 <section id="home" class="page active">
   <div class="topline">MY STUDY SPACE ✦</div>
   <h1>Merhaba! 🌷</h1>
+
   <div class="hero">
     <h2>Bugün güzel şeyler başaracağız!</h2>
     <p class="muted">Küçük adımlar, büyük sonuçlar getirir.</p>
@@ -320,9 +402,22 @@ h3{font-size:14px;margin:0 0 9px}
   <div class="card">
     <div class="row">
       <h2>Bugünkü planım</h2>
-      <button class="btn light" onclick="openPage('program')">Düzenle</button>
+      <button class="btn light small" onclick="openPage('program')">Programım</button>
     </div>
     <div id="homeTasks"></div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <h2>Konu ilerlemem 📚</h2>
+      <span class="muted" id="homeTopicCount"></span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="homeTopicProgress"></div>
+    </div>
+    <button class="btn light full" onclick="openPage('program');setProgramTab('topics')">
+      Konularıma git
+    </button>
   </div>
 
   <button class="btn full" onclick="openPage('focus')">
@@ -330,36 +425,87 @@ h3{font-size:14px;margin:0 0 9px}
   </button>
 </section>
 
-<!-- PROGRAM -->
 <section id="program" class="page">
-  <div class="topline">PLAN MY DAY</div>
+  <div class="topline">PLAN MY WEEK</div>
   <h1>Programım 📅</h1>
-  <p class="muted">Bugün yapacaklarını küçük adımlara böl.</p>
+  <p class="muted">Haftanı planla, konularını takip et.</p>
 
-  <div class="card">
-    <h2>Yeni görev ekle</h2>
-    <div class="form-row">
-      <input id="taskInput" placeholder="Örn. Üçgenler 20 soru" maxlength="90">
-      <select id="taskSubject">
-        <option>Geometri</option>
-        <option>Matematik</option>
-        <option>Fizik</option>
-        <option>Kimya</option>
-        <option>Biyoloji</option>
-        <option>Paragraf</option>
-        <option>Edebiyat</option>
-      </select>
-    </div>
-    <button class="btn full" style="margin-top:10px" onclick="addTask()">+ Görev ekle</button>
+  <div class="section-tabs">
+    <button id="weeklyTab" class="selected" onclick="setProgramTab('weekly')">
+      Haftalık program
+    </button>
+    <button id="topicsTab" onclick="setProgramTab('topics')">
+      Konu takibi
+    </button>
   </div>
 
-  <div class="card">
-    <h2>Görevlerim</h2>
-    <div id="programTasks"></div>
+  <div id="weeklyPanel">
+    <div class="card">
+      <div class="week-head">
+        <button class="btn light small" onclick="moveWeek(-1)">‹</button>
+        <strong id="weekLabel"></strong>
+        <button class="btn light small" onclick="moveWeek(1)">›</button>
+      </div>
+      <div class="week-days" id="weekDays"></div>
+      <div style="margin-top:15px;text-align:center">
+        <button class="btn light small" onclick="goToday()">Bugüne dön</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="selectedDayTitle">Günlük plan</h2>
+      <div class="row">
+        <span class="muted" id="selectedDayProgress"></span>
+        <span class="muted" id="selectedDayPercent"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="dayProgressFill"></div>
+      </div>
+      <div id="weeklyTasks"></div>
+    </div>
+
+    <div class="card">
+      <h2>+ Seçili güne görev ekle</h2>
+      <input class="field" id="taskInput"
+        placeholder="Örn. Üçgenler - 20 soru" maxlength="90">
+      <select class="field" id="taskSubject"></select>
+      <button class="btn full" onclick="addTask()">Görevi ekle</button>
+    </div>
+  </div>
+
+  <div id="topicsPanel" style="display:none">
+    <div class="card">
+      <h2>Genel konu ilerlemem</h2>
+      <div class="row">
+        <strong id="overallTopicPercent">0%</strong>
+        <span class="muted" id="overallTopicCount"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="overallTopicFill"></div>
+      </div>
+      <div id="subjectProgress"></div>
+    </div>
+
+    <div class="card">
+      <h2>Yeni konu ekle</h2>
+      <select class="field" id="topicSubject"></select>
+      <input class="field" id="topicInput"
+        placeholder="Örn. Üçgende açılar" maxlength="100">
+      <button class="btn full" onclick="addTopic()">+ Konu ekle</button>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <h2>Konularım</h2>
+        <select id="topicFilter" class="field"
+          style="width:140px;margin:0"
+          onchange="renderTopics()"></select>
+      </div>
+      <div id="topicList"></div>
+    </div>
   </div>
 </section>
 
-<!-- ODAKLAN -->
 <section id="focus" class="page">
   <div class="topline">FOCUS TIME ✦</div>
   <h1>Odaklanma Köşem 🌸</h1>
@@ -370,12 +516,12 @@ h3{font-size:14px;margin:0 0 9px}
       <h2>📐 Geometri</h2>
       <span class="muted">25 / 5 dk</span>
     </div>
-
-    <div class="tabs">
-      <button id="workTab" class="selected" onclick="changeMode('work')">✦ Çalışma</button>
-      <button id="breakTab" onclick="changeMode('break')">☕ Mola</button>
+    <div class="section-tabs">
+      <button id="workTab" class="selected"
+        onclick="changeMode('work')">✦ Çalışma</button>
+      <button id="breakTab"
+        onclick="changeMode('break')">☕ Mola</button>
     </div>
-
     <div class="timer-circle">
       <svg viewBox="0 0 280 280" aria-hidden="true">
         <circle class="track" cx="140" cy="140" r="120"/>
@@ -387,10 +533,11 @@ h3{font-size:14px;margin:0 0 9px}
         <div class="muted" id="timerMode">Geometri zamanı</div>
       </div>
     </div>
-
     <div class="timer-buttons">
-      <button class="btn" id="startButton" onclick="toggleTimer()">▶ Başlat</button>
-      <button class="btn light" onclick="resetTimer()">↺ Sıfırla</button>
+      <button class="btn" id="startButton"
+        onclick="toggleTimer()">▶ Başlat</button>
+      <button class="btn light"
+        onclick="resetTimer()">↺ Sıfırla</button>
     </div>
     <div class="notice" id="timerStatus">
       Hazır olduğunda başlayabilirsin ♡
@@ -407,14 +554,13 @@ h3{font-size:14px;margin:0 0 9px}
   </div>
 </section>
 
-<!-- İSTATİSTİK -->
 <section id="stats" class="page">
   <div class="topline">MY PROGRESS</div>
   <h1>İstatistiklerim 📊</h1>
   <p class="muted">Her küçük ilerleme birikerek büyür.</p>
 
   <div class="card">
-    <h2>Bu haftaki çalışmalarım</h2>
+    <h2>Son 7 gün</h2>
     <div class="bar-chart" id="weeklyChart"></div>
   </div>
 
@@ -433,7 +579,6 @@ h3{font-size:14px;margin:0 0 9px}
   </div>
 </section>
 
-<!-- KOLEKSİYON -->
 <section id="collection" class="page">
   <div class="topline">MY LITTLE GARDEN</div>
   <h1>Koleksiyonum 🌿</h1>
@@ -442,7 +587,7 @@ h3{font-size:14px;margin:0 0 9px}
   <div class="card">
     <div class="row">
       <h2>Çiçek bahçem</h2>
-      <span class="muted" id="plantCount">0 / 6</span>
+      <span class="muted" id="plantCount"></span>
     </div>
     <div class="collection" id="plants"></div>
   </div>
@@ -462,16 +607,24 @@ h3{font-size:14px;margin:0 0 9px}
 
 </div>
 
-<!-- ALT MENÜ -->
 <nav class="nav">
-  <button data-page="home" class="active" onclick="openPage('home')"><span class="ico">⌂</span>Ana Sayfa</button>
-  <button data-page="program" onclick="openPage('program')"><span class="ico">▦</span>Programım</button>
-  <button data-page="focus" onclick="openPage('focus')"><span class="ico">◷</span>Odaklan</button>
-  <button data-page="stats" onclick="openPage('stats')"><span class="ico">▥</span>İstatistik</button>
-  <button data-page="collection" onclick="openPage('collection')"><span class="ico">✿</span>Koleksiyon</button>
+  <button data-page="home" class="active" onclick="openPage('home')">
+    <span class="ico">⌂</span>Ana Sayfa
+  </button>
+  <button data-page="program" onclick="openPage('program')">
+    <span class="ico">▦</span>Programım
+  </button>
+  <button data-page="focus" onclick="openPage('focus')">
+    <span class="ico">◷</span>Odaklan
+  </button>
+  <button data-page="stats" onclick="openPage('stats')">
+    <span class="ico">▥</span>İstatistik
+  </button>
+  <button data-page="collection" onclick="openPage('collection')">
+    <span class="ico">✿</span>Koleksiyon
+  </button>
 </nav>
 
-<!-- KUTLAMA -->
 <div class="modal" id="modal">
   <div class="popup">
     <div class="flower" id="popupEmoji">🌷✨</div>
@@ -488,9 +641,14 @@ const BREAK = 5 * 60;
 const C = 2 * Math.PI * 120;
 const $ = id => document.getElementById(id);
 
+const subjects = [
+  "Matematik","Geometri","Fizik","Kimya",
+  "Biyoloji","Paragraf","Edebiyat"
+];
+
 const colors = {
-  Geometri:"#c4a3e9",
   Matematik:"#a99ae0",
+  Geometri:"#c4a3e9",
   Fizik:"#9dcbbf",
   Kimya:"#f2bd93",
   Biyoloji:"#a5d6a7",
@@ -498,37 +656,64 @@ const colors = {
   Edebiyat:"#c8b3da"
 };
 
-function today(d = new Date()) {
-  return [
-    d.getFullYear(),
-    String(d.getMonth()+1).padStart(2,"0"),
-    String(d.getDate()).padStart(2,"0")
-  ].join("-");
+const days = ["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+const months = [
+  "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+  "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+];
+
+function dateKey(d = new Date()) {
+  return d.getFullYear() + "-" +
+    String(d.getMonth()+1).padStart(2,"0") + "-" +
+    String(d.getDate()).padStart(2,"0");
+}
+
+function parseDate(s) {
+  const [y,m,d] = s.split("-").map(Number);
+  return new Date(y,m-1,d,12);
+}
+
+function addDays(s,n) {
+  const d = parseDate(s);
+  d.setDate(d.getDate()+n);
+  return dateKey(d);
+}
+
+function monday(s) {
+  const d = parseDate(s);
+  d.setDate(d.getDate()-(d.getDay()+6)%7);
+  return dateKey(d);
 }
 
 function defaultData() {
   return {
     tasks: [],
-    history:[],
-    xp:0
+    history: [],
+    xp: 0,
+    topics: []
   };
 }
 
 function load() {
   try {
-    const value = JSON.parse(localStorage.getItem(KEY));
-    if(value && Array.isArray(value.tasks) && Array.isArray(value.history)) {
+    const v = JSON.parse(localStorage.getItem(KEY));
+    if(v && Array.isArray(v.tasks) && Array.isArray(v.history)) {
       return {
-        tasks:value.tasks,
-        history:value.history,
-        xp:Number(value.xp)||0
+        tasks:v.tasks,
+        history:v.history,
+        xp:Number(v.xp)||0,
+        topics:Array.isArray(v.topics)?v.topics:[]
       };
     }
-  } catch(e) {}
+  } catch(e) {
+    console.warn("Kayıt okunamadı",e);
+  }
   return defaultData();
 }
 
 let db = load();
+let selectedDate = dateKey();
+let programTab = "weekly";
 
 function save() {
   try {
@@ -539,100 +724,391 @@ function save() {
 }
 
 function openPage(page) {
-  document.querySelectorAll(".page").forEach(el =>
-    el.classList.toggle("active",el.id===page)
-  );
-  document.querySelectorAll(".nav button").forEach(el =>
-    el.classList.toggle("active",el.dataset.page===page)
-  );
+  document.querySelectorAll(".page").forEach(el => {
+    el.classList.toggle("active",el.id===page);
+  });
+
+  document.querySelectorAll(".nav button").forEach(el => {
+    el.classList.toggle("active",el.dataset.page===page);
+  });
+
   render();
   window.scrollTo(0,0);
 }
 
-function makeTask(task) {
-  const row = document.createElement("div");
-  row.className = "task" + (task.done?" done":"");
+function setProgramTab(tab) {
+  programTab=tab;
+  $("weeklyPanel").style.display=tab==="weekly"?"block":"none";
+  $("topicsPanel").style.display=tab==="topics"?"block":"none";
+  $("weeklyTab").classList.toggle("selected",tab==="weekly");
+  $("topicsTab").classList.toggle("selected",tab==="topics");
+  render();
+}
 
-  const dot = document.createElement("div");
-  dot.className = "dot";
-  dot.style.background = colors[task.subject] || "#b9a2d9";
+function populateSelects() {
+  ["taskSubject","topicSubject"].forEach(id => {
+    subjects.forEach(s => {
+      const option=document.createElement("option");
+      option.value=s;
+      option.textContent=s;
+      $(id).append(option);
+    });
+  });
 
-  const check = document.createElement("input");
-  check.type = "checkbox";
-  check.checked = task.done;
-  check.addEventListener("change",() => {
-    task.done = check.checked;
+  const all=document.createElement("option");
+  all.value="all";
+  all.textContent="Tüm dersler";
+  $("topicFilter").append(all);
+
+  subjects.forEach(s => {
+    const option=document.createElement("option");
+    option.value=s;
+    option.textContent=s;
+    $("topicFilter").append(option);
+  });
+}
+
+function moveWeek(direction) {
+  selectedDate=addDays(monday(selectedDate),direction*7);
+  render();
+}
+
+function goToday() {
+  selectedDate=dateKey();
+  render();
+}
+
+function selectDay(key) {
+  selectedDate=key;
+  render();
+}
+
+function renderWeek() {
+  const start=monday(selectedDate);
+  const end=addDays(start,6);
+  const a=parseDate(start);
+  const b=parseDate(end);
+
+  $("weekLabel").textContent =
+    a.getDate()+" "+months[a.getMonth()]+" – "+
+    b.getDate()+" "+months[b.getMonth()];
+
+  const box=$("weekDays");
+  box.replaceChildren();
+
+  for(let i=0;i<7;i++) {
+    const key=addDays(start,i);
+    const button=document.createElement("button");
+
+    button.className="day"+
+      (key===selectedDate?" selected":"")+
+      (key===dateKey()?" today":"");
+
+    const label=document.createElement("span");
+    label.textContent=days[i];
+
+    const number=document.createElement("strong");
+    number.textContent=parseDate(key).getDate();
+
+    button.append(label,number);
+    button.onclick=()=>selectDay(key);
+    box.append(button);
+  }
+}
+
+function makeTask(task,canDelete=false) {
+  const row=document.createElement("div");
+  row.className="task"+(task.done?" done":"");
+
+  const dot=document.createElement("div");
+  dot.className="dot";
+  dot.style.background=colors[task.subject]||"#b9a2d9";
+
+  const check=document.createElement("input");
+  check.type="checkbox";
+  check.checked=task.done;
+
+  check.addEventListener("change",function() {
+    task.done=check.checked;
     save();
     render();
   });
 
-  const label = document.createElement("span");
-  label.textContent = task.subject+" · "+task.name;
+  const label=document.createElement("span");
+  label.className="task-name";
+  label.textContent=task.subject+" · "+task.name;
 
   row.append(dot,check,label);
+
+  if(canDelete) {
+    const del=document.createElement("button");
+    del.type="button";
+    del.className="delete";
+    del.textContent="×";
+    del.setAttribute("aria-label","Görevi sil");
+
+    del.addEventListener("click",function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Görevi benzersiz ID ile sil.
+      db.tasks=db.tasks.filter(t=>t.id!==task.id);
+
+      save();
+      render();
+    });
+
+    row.append(del);
+  }
+
   return row;
 }
 
+function renderTaskList(id,date,canDelete) {
+  const list=db.tasks.filter(t=>t.date===date);
+  const box=$(id);
+  box.replaceChildren();
+
+  if(!list.length) {
+    const p=document.createElement("p");
+    p.className="muted";
+    p.textContent="Bu güne henüz görev eklenmedi 🌷";
+    box.append(p);
+  }
+
+  list.forEach(t=>box.append(makeTask(t,canDelete)));
+  return list;
+}
+
 function renderTasks() {
-  const current = db.tasks.filter(t=>t.date===today());
-  const done = current.filter(t=>t.done).length;
-  $("taskCount").textContent = done+" / "+current.length;
-  $("taskProgress").style.width =
+  const current=renderTaskList("homeTasks",dateKey(),false);
+  const done=current.filter(t=>t.done).length;
+
+  $("taskCount").textContent=done+" / "+current.length;
+  $("taskProgress").style.width=
     (current.length?done/current.length*100:0)+"%";
 
-  ["homeTasks","programTasks"].forEach(id=>{
-    const box = $(id);
-    box.replaceChildren();
-    if(!current.length) {
-      const p=document.createElement("p");
-      p.className="muted";
-      p.textContent="Henüz görev eklemedin 🌷";
-      box.append(p);
-    }
-    current.forEach(task=>box.append(makeTask(task)));
-  });
+  renderWeek();
+
+  const selected=renderTaskList(
+    "weeklyTasks",selectedDate,true
+  );
+
+  const selectedDone=selected.filter(t=>t.done).length;
+  const percent=selected.length
+    ?Math.round(selectedDone/selected.length*100):0;
+
+  const d=parseDate(selectedDate);
+
+  $("selectedDayTitle").textContent=
+    d.getDate()+" "+months[d.getMonth()]+" "+
+    days[(d.getDay()+6)%7];
+
+  $("selectedDayProgress").textContent=
+    selectedDone+" / "+selected.length+" tamamlandı";
+
+  $("selectedDayPercent").textContent=percent+"%";
+  $("dayProgressFill").style.width=percent+"%";
 }
 
 function addTask() {
-  const name = $("taskInput").value.trim();
+  const name=$("taskInput").value.trim();
+
   if(!name) {
-    alert("Önce bir görev yazmalısın.");
+    alert("Bir görev yazmalısın.");
     return;
   }
+
   db.tasks.push({
-    id:Date.now(),
-    name,
+    id:Date.now()+Math.random(),
+    name:name,
     subject:$("taskSubject").value,
     done:false,
-    date:today()
+    date:selectedDate
   });
+
   $("taskInput").value="";
   save();
   render();
 }
 
-function todaySessions() {
-  return db.history.filter(h=>h.date===today());
+function addTopic() {
+  const name=$("topicInput").value.trim();
+
+  if(!name) {
+    alert("Önce bir konu adı yaz.");
+    return;
+  }
+
+  db.topics.push({
+    id:Date.now()+Math.random(),
+    name:name,
+    subject:$("topicSubject").value,
+    status:"not-started"
+  });
+
+  $("topicInput").value="";
+  save();
+  render();
+}
+
+function topicPercent(list) {
+  if(!list.length)return 0;
+  return Math.round(
+    list.filter(t=>t.status==="done").length/list.length*100
+  );
+}
+
+function renderTopics() {
+  const filter=$("topicFilter").value;
+  const list=db.topics.filter(
+    t=>filter==="all"||t.subject===filter
+  );
+
+  const box=$("topicList");
+  box.replaceChildren();
+
+  if(!list.length) {
+    const p=document.createElement("p");
+    p.className="muted";
+    p.textContent="Henüz konu eklenmedi 📚";
+    box.append(p);
+  }
+
+  list.forEach(t => {
+    const row=document.createElement("div");
+    row.className="topic";
+
+    const title=document.createElement("div");
+    title.className="topic-title";
+    title.textContent=t.subject+" · "+t.name;
+
+    const actions=document.createElement("div");
+    actions.className="topic-actions";
+
+    const select=document.createElement("select");
+
+    [
+      ["not-started","Başlanmadı"],
+      ["progress","Çalışılıyor"],
+      ["done","Tamamlandı ✓"]
+    ].forEach(([value,label]) => {
+      const option=document.createElement("option");
+      option.value=value;
+      option.textContent=label;
+      select.append(option);
+    });
+
+    select.value=t.status;
+
+    select.addEventListener("change",function() {
+      t.status=select.value;
+      save();
+      render();
+    });
+
+    const del=document.createElement("button");
+    del.type="button";
+    del.className="delete";
+    del.textContent="×";
+    del.setAttribute("aria-label","Konuyu sil");
+
+    del.addEventListener("click",function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      db.topics=db.topics.filter(x=>x.id!==t.id);
+
+      save();
+      render();
+    });
+
+    actions.append(select,del);
+    row.append(title,actions);
+    box.append(row);
+  });
+
+  const completed=db.topics.filter(
+    t=>t.status==="done"
+  ).length;
+
+  const pct=topicPercent(db.topics);
+
+  $("overallTopicPercent").textContent=pct+"%";
+  $("overallTopicCount").textContent=
+    completed+" / "+db.topics.length+" konu";
+  $("overallTopicFill").style.width=pct+"%";
+
+  $("homeTopicCount").textContent=
+    completed+" / "+db.topics.length;
+  $("homeTopicProgress").style.width=pct+"%";
+
+  const subjectBox=$("subjectProgress");
+  subjectBox.replaceChildren();
+
+  subjects.forEach(s => {
+    const arr=db.topics.filter(t=>t.subject===s);
+    if(!arr.length)return;
+
+    const wrap=document.createElement("div");
+    wrap.className="subject-progress";
+
+    const heading=document.createElement("div");
+    heading.className="row";
+
+    const name=document.createElement("span");
+    name.textContent=s;
+    name.style.fontSize="13px";
+
+    const pctText=document.createElement("span");
+    pctText.className="muted";
+    pctText.textContent=topicPercent(arr)+"%";
+
+    heading.append(name,pctText);
+
+    const track=document.createElement("div");
+    track.className="progress-track";
+
+    const fill=document.createElement("div");
+    fill.className="progress-fill";
+    fill.style.background=colors[s];
+    fill.style.width=topicPercent(arr)+"%";
+
+    track.append(fill);
+    wrap.append(heading,track);
+    subjectBox.append(wrap);
+  });
+}
+
+function dailySessions() {
+  return db.history.filter(h=>h.date===dateKey());
 }
 
 function sumMinutes(items) {
-  return items.reduce((sum,h)=>sum+h.minutes,0);
+  return items.reduce(
+    (sum,h)=>sum+(Number(h.minutes)||0),0
+  );
 }
 
 function renderStats() {
-  const daily=todaySessions();
-  const dailyMinutes=sumMinutes(daily);
-  const allMinutes=sumMinutes(db.history);
+  const daily=dailySessions();
+  const dailyXP=daily.length*25;
 
-  $("homeSessions").textContent=daily.length;
-  $("homeMinutes").textContent=dailyMinutes;
-  $("homeXP").textContent=daily.length*25;
-  $("focusSessions").textContent=daily.length;
-  $("focusMinutes").textContent=dailyMinutes;
-  $("focusXP").textContent=daily.length*25;
-  $("totalSessions").textContent=db.history.length;
-  $("totalMinutes").textContent=allMinutes;
-  $("totalXP").textContent=db.xp;
+  const values=[
+    ["homeSessions",daily.length],
+    ["homeMinutes",sumMinutes(daily)],
+    ["homeXP",dailyXP],
+    ["focusSessions",daily.length],
+    ["focusMinutes",sumMinutes(daily)],
+    ["focusXP",dailyXP],
+    ["totalSessions",db.history.length],
+    ["totalMinutes",sumMinutes(db.history)],
+    ["totalXP",db.xp]
+  ];
+
+  values.forEach(([id,value])=>{
+    $(id).textContent=value;
+  });
 
   renderChart();
   renderHistory();
@@ -643,30 +1119,34 @@ function renderChart() {
   chart.replaceChildren();
 
   const dates=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date();
-    d.setHours(12,0,0,0);
+
+  for(let i=6;i>=0;i--) {
+    const d=parseDate(dateKey());
     d.setDate(d.getDate()-i);
     dates.push({
-      key:today(d),
-      label:["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"][d.getDay()]
+      key:dateKey(d),
+      label:days[(d.getDay()+6)%7]
     });
   }
 
   const values=dates.map(d=>sumMinutes(
     db.history.filter(h=>h.date===d.key)
   ));
+
   const max=Math.max(25,...values);
 
   dates.forEach((d,i)=>{
     const wrap=document.createElement("div");
     wrap.className="bar-wrap";
+
     const bar=document.createElement("div");
     bar.className="bar";
     bar.style.height=(values[i]/max*115)+"px";
     bar.title=values[i]+" dakika";
+
     const label=document.createElement("small");
     label.textContent=d.label;
+
     wrap.append(bar,label);
     chart.append(wrap);
   });
@@ -687,19 +1167,19 @@ function renderHistory() {
   db.history.slice(0,30).forEach(h=>{
     const row=document.createElement("div");
     row.className="history-item";
-    row.textContent="📐 "+h.subject+" · "+h.minutes+
-      " dk · "+h.date+" "+h.time;
+    row.textContent="📐 "+h.subject+" · "+
+      h.minutes+" dk · "+h.date+" "+h.time;
     box.append(row);
   });
 }
 
-const plantList=[
-  {emoji:"🌱",name:"İlk filiz",needed:1},
-  {emoji:"🌼",name:"Papatya",needed:3},
-  {emoji:"🪻",name:"Lavanta",needed:5},
-  {emoji:"🌷",name:"Lale",needed:8},
-  {emoji:"🌻",name:"Ayçiçeği",needed:12},
-  {emoji:"🌹",name:"Gül",needed:20}
+const plants=[
+  ["🌱","İlk filiz",1],
+  ["🌼","Papatya",3],
+  ["🪻","Lavanta",5],
+  ["🌷","Lale",8],
+  ["🌻","Ayçiçeği",12],
+  ["🌹","Gül",20]
 ];
 
 function renderCollection() {
@@ -708,32 +1188,37 @@ function renderCollection() {
   box.replaceChildren();
   let unlocked=0;
 
-  plantList.forEach(p=>{
-    const yes=count>=p.needed;
+  plants.forEach(([emoji,name,needed])=>{
+    const yes=count>=needed;
     if(yes)unlocked++;
+
     const card=document.createElement("div");
     card.className="plant"+(yes?"":" locked");
 
-    const emoji=document.createElement("div");
-    emoji.className="emoji";
-    emoji.textContent=yes?p.emoji:"🔒";
+    const e=document.createElement("div");
+    e.className="emoji";
+    e.textContent=yes?emoji:"🔒";
 
     const label=document.createElement("small");
-    label.textContent=yes?p.name:p.needed+" seans";
+    label.textContent=yes?name:needed+" seans";
 
-    card.append(emoji,label);
+    card.append(e,label);
     box.append(card);
   });
 
-  $("plantCount").textContent=unlocked+" / "+plantList.length;
-  const level=Math.floor(db.xp/100)+1;
-  $("levelName").textContent="Seviye "+level;
+  $("plantCount").textContent=
+    unlocked+" / "+plants.length;
+
+  $("levelName").textContent=
+    "Seviye "+(Math.floor(db.xp/100)+1);
+
   $("levelXP").textContent=db.xp+" XP";
   $("levelProgress").style.width=(db.xp%100)+"%";
 }
 
 function render() {
   renderTasks();
+  renderTopics();
   renderStats();
   renderCollection();
 }
@@ -752,22 +1237,41 @@ function duration() {
 function updateTimer() {
   const m=String(Math.floor(remaining/60)).padStart(2,"0");
   const s=String(remaining%60).padStart(2,"0");
+
   $("timerText").textContent=m+":"+s;
   $("ring").style.strokeDasharray=C;
-  $("ring").style.strokeDashoffset=C*(1-remaining/duration());
-  $("ring").style.stroke=mode==="work"?"#a68bd4":"#94cbb8";
-  $("timerEmoji").textContent=mode==="work"?"🌷":"☕";
-  $("timerMode").textContent=mode==="work"?"Geometri zamanı":"Mola zamanı";
-  $("workTab").classList.toggle("selected",mode==="work");
-  $("breakTab").classList.toggle("selected",mode==="break");
-  $("startButton").textContent=running?"Ⅱ Duraklat":"▶ Başlat";
+  $("ring").style.strokeDashoffset=
+    C*(1-remaining/duration());
+
+  $("ring").style.stroke=
+    mode==="work"?"#a68bd4":"#94cbb8";
+
+  $("timerEmoji").textContent=
+    mode==="work"?"🌷":"☕";
+
+  $("timerMode").textContent=
+    mode==="work"?"Geometri zamanı":"Mola zamanı";
+
+  $("workTab").classList.toggle(
+    "selected",mode==="work"
+  );
+  $("breakTab").classList.toggle(
+    "selected",mode==="break"
+  );
+
+  $("startButton").textContent=
+    running?"Ⅱ Duraklat":"▶ Başlat";
+
   document.title=m+":"+s+" | My Study Space";
 }
 
 function stopTimer() {
-  if(running && endTime!==null) {
-    remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
+  if(running&&endTime!==null) {
+    remaining=Math.max(
+      0,Math.ceil((endTime-Date.now())/1000)
+    );
   }
+
   running=false;
   endTime=null;
   clearInterval(interval);
@@ -777,12 +1281,16 @@ function stopTimer() {
 
 function startTimer() {
   if(running)return;
+
   running=true;
   endTime=Date.now()+remaining*1000;
   interval=setInterval(tick,250);
-  $("timerStatus").textContent=mode==="work"
+
+  $("timerStatus").textContent=
+    mode==="work"
     ?"Şimdi sadece geometriye odaklan ♡"
     :"Dinlenmeyi de hak ettin 🌿";
+
   updateTimer();
 }
 
@@ -798,7 +1306,8 @@ function toggleTimer() {
 function resetTimer() {
   stopTimer();
   remaining=duration();
-  $("timerStatus").textContent="Yeniden başlayabilirsin ✨";
+  $("timerStatus").textContent=
+    "Yeniden başlayabilirsin ✨";
   updateTimer();
 }
 
@@ -806,45 +1315,58 @@ function changeMode(next,autostart=false) {
   stopTimer();
   mode=next;
   remaining=duration();
-  $("timerStatus").textContent=mode==="work"
+
+  $("timerStatus").textContent=
+    mode==="work"
     ?"Yeni bir odaklanma seansı 🌷"
     :"5 dakikalık mola 🌿";
+
   updateTimer();
   if(autostart)startTimer();
 }
 
 function tick() {
-  if(!running || endTime===null)return;
-  remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
+  if(!running||endTime===null)return;
+
+  remaining=Math.max(
+    0,Math.ceil((endTime-Date.now())/1000)
+  );
+
   if(remaining===0)completeTimer();
   else updateTimer();
 }
 
 function completeTimer() {
   const finished=mode;
+
   stopTimer();
   remaining=0;
   updateTimer();
 
   if(finished==="work") {
     const now=new Date();
+
     db.history.unshift({
       id:Date.now(),
-      date:today(now),
+      date:dateKey(now),
       time:now.toLocaleTimeString("tr-TR",{
-        hour:"2-digit",minute:"2-digit"
+        hour:"2-digit",
+        minute:"2-digit"
       }),
       subject:"Geometri",
       minutes:25
     });
+
     db.xp+=25;
     save();
     render();
+
     showPopup(
       "🌷✨",
       "Harika iş çıkardın!",
       "25 dakika Geometri çalıştın. +25 XP kazandın! Şimdi 5 dakika mola."
     );
+
     changeMode("break",true);
   } else {
     showPopup(
@@ -852,6 +1374,7 @@ function completeTimer() {
       "Molan tamamlandı!",
       "Dinlendin! Hazırsan yeni bir Geometri seansına başlayabilirsin."
     );
+
     changeMode("work",false);
   }
 }
@@ -867,13 +1390,11 @@ function closePopup() {
   $("modal").classList.remove("show");
 }
 
-// Sayfa arka plandayken geçen süreyi doğru hesapla.
 document.addEventListener("visibilitychange",()=>{
   if(!document.hidden)tick();
 });
 
-// Sayfa yenilendiğinde görevler ve tamamlanan
-// seanslar korunur. Aktif sayaç ise durur.
+populateSelects();
 render();
 updateTimer();
 save();
