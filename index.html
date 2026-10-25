@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f3fc">
+<title>My Study Space 🌷</title>
+<style>
+:root {
+  --bg:#f8f3fc;
+  --card:#fff;
+  --purple:#a68bd4;
+  --deep:#57436f;
+  --muted:#998ba8;
+  --line:#eee7f4;
+  --pink:#f7dce8;
+  --mint:#dcefe7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--deep);
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{
+  width:min(100%,480px);
+  min-height:100dvh;
+  margin:auto;
+  padding:22px 17px 100px;
+}
+.page{display:none}
+.page.active{display:block}
+.topline{
+  font-size:11px;
+  letter-spacing:2px;
+  color:#a08bb6;
+  font-weight:700;
+}
+h1{font-size:25px;margin:9px 0}
+h2{font-size:17px;margin:0 0 15px}
+h3{font-size:14px;margin:0 0 9px}
+.muted{color:var(--muted);font-size:13px}
+.card{
+  background:var(--card);
+  padding:19px;
+  border-radius:23px;
+  margin:16px 0;
+  box-shadow:0 8px 28px #6f5b8410;
+}
+.hero{
+  background:linear-gradient(135deg,#f5e5f2,#e9e2fa);
+  border-radius:25px;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"🌷";
+  position:absolute;
+  right:16px;
+  bottom:10px;
+  font-size:65px;
+  opacity:.7;
+}
+.hero p{max-width:240px;line-height:1.5}
+.progress-track{
+  height:9px;
+  background:#eee7f4;
+  border-radius:20px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--purple);
+  border-radius:20px;
+  transition:width .3s;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+.stat{
+  background:#f7f1fc;
+  border-radius:15px;
+  padding:15px 5px;
+  text-align:center;
+}
+.stat:nth-child(2){background:#fff0f5}
+.stat:nth-child(3){background:#edf8f2}
+.stat strong{display:block;font-size:20px}
+.stat small{font-size:10px;color:var(--muted)}
+.task{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:13px 2px;
+  border-bottom:1px solid var(--line);
+}
+.task:last-child{border:0}
+.task input{accent-color:var(--purple);width:18px;height:18px}
+.task span{flex:1;font-size:13px}
+.task.done span{text-decoration:line-through;color:#aaa}
+.dot{width:7px;height:29px;border-radius:10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.btn{
+  border:0;
+  border-radius:14px;
+  padding:13px 16px;
+  font-weight:700;
+  background:var(--purple);
+  color:white;
+}
+.btn.light{background:#f1eaf8;color:#8569aa}
+.btn.full{width:100%}
+.form-row{display:flex;gap:8px;margin-top:12px}
+.form-row input,.form-row select{
+  min-width:0;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fcfaff;
+  color:var(--deep);
+}
+.form-row input{flex:1;width:0}
+.form-row select{width:120px}
+.tabs{
+  display:flex;
+  gap:6px;
+  padding:5px;
+  border-radius:15px;
+  background:#f3edf9;
+  margin:20px 0;
+}
+.tabs button{
+  flex:1;
+  border:0;
+  border-radius:11px;
+  background:transparent;
+  color:#9c8baa;
+  padding:12px 5px;
+}
+.tabs button.selected{
+  background:white;
+  color:#7c60ac;
+  font-weight:700;
+  box-shadow:0 3px 10px #8b71a018;
+}
+.timer-circle{
+  width:min(270px,100%);
+  aspect-ratio:1;
+  position:relative;
+  margin:20px auto 25px;
+}
+.timer-circle svg{
+  width:100%;
+  height:100%;
+  transform:rotate(-90deg);
+}
+.timer-circle circle{
+  fill:none;
+  stroke-width:11;
+}
+.timer-circle .track{stroke:#f0eaf7}
+.timer-circle .fill{
+  stroke:var(--purple);
+  stroke-linecap:round;
+  transition:stroke-dashoffset .25s linear;
+}
+.timer-inner{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.time{
+  font-size:54px;
+  font-weight:700;
+  letter-spacing:-2px;
+  font-variant-numeric:tabular-nums;
+}
+.timer-buttons{display:flex;gap:9px}
+.timer-buttons .btn{flex:1}
+.notice{
+  font-size:12px;
+  text-align:center;
+  color:var(--muted);
+  margin-top:16px;
+  line-height:1.5;
+}
+.bar-chart{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+  height:155px;
+  padding-top:12px;
+}
+.bar-wrap{
+  flex:1;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+}
+.bar{
+  width:100%;
+  max-width:35px;
+  min-height:3px;
+  background:#b8a1df;
+  border-radius:8px 8px 3px 3px;
+}
+.bar-wrap small{font-size:10px;color:var(--muted)}
+.collection{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.plant{
+  background:#f6effa;
+  border-radius:17px;
+  padding:18px 6px;
+  text-align:center;
+}
+.plant .emoji{font-size:38px;margin-bottom:9px}
+.plant small{font-size:11px}
+.plant.locked{opacity:.45;filter:grayscale(.8)}
+.history-item{
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.history-item:last-child{border:0}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(100%,480px);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:#fff;
+  border-top:1px solid var(--line);
+  padding:10px 5px max(10px,env(safe-area-inset-bottom));
+  z-index:5;
+}
+.nav button{
+  border:0;
+  background:none;
+  color:#9d8eae;
+  font-size:10px;
+  padding:6px 0;
+}
+.nav button.active{color:#8565b9;font-weight:700}
+.nav .ico{display:block;font-size:20px;margin-bottom:5px}
+.modal{
+  position:fixed;
+  inset:0;
+  background:#43334b77;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:10;
+}
+.modal.show{display:flex}
+.popup{
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
+  width:min(100%,340px);
+}
+.popup .flower{font-size:55px}
+@media(max-width:350px){
+  .app{padding-left:10px;padding-right:10px}
+  .card{padding:15px}
+  .time{font-size:46px}
+  .form-row{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- ANA SAYFA -->
+<section id="home" class="page active">
+  <div class="topline">MY STUDY SPACE ✦</div>
+  <h1>Merhaba! 🌷</h1>
+  <div class="hero">
+    <h2>Bugün güzel şeyler başaracağız!</h2>
+    <p class="muted">Küçük adımlar, büyük sonuçlar getirir.</p>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <h2>Günlük hedeflerim</h2>
+      <span class="muted" id="taskCount"></span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="taskProgress"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong id="homeSessions">0</strong><small>Pomodoro</small></div>
+      <div class="stat"><strong id="homeMinutes">0</strong><small>Odak dakikası</small></div>
+      <div class="stat"><strong id="homeXP">0</strong><small>XP puanı</small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <h2>Bugünkü planım</h2>
+      <button class="btn light" onclick="openPage('program')">Düzenle</button>
+    </div>
+    <div id="homeTasks"></div>
+  </div>
+
+  <button class="btn full" onclick="openPage('focus')">
+    ✨ Odaklanmaya başla
+  </button>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" class="page">
+  <div class="topline">PLAN MY DAY</div>
+  <h1>Programım 📅</h1>
+  <p class="muted">Bugün yapacaklarını küçük adımlara böl.</p>
+
+  <div class="card">
+    <h2>Yeni görev ekle</h2>
+    <div class="form-row">
+      <input id="taskInput" placeholder="Örn. Üçgenler 20 soru" maxlength="90">
+      <select id="taskSubject">
+        <option>Geometri</option>
+        <option>Matematik</option>
+        <option>Fizik</option>
+        <option>Kimya</option>
+        <option>Biyoloji</option>
+        <option>Paragraf</option>
+        <option>Edebiyat</option>
+      </select>
+    </div>
+    <button class="btn full" style="margin-top:10px" onclick="addTask()">+ Görev ekle</button>
+  </div>
+
+  <div class="card">
+    <h2>Görevlerim</h2>
+    <div id="programTasks"></div>
+  </div>
+</section>
+
+<!-- ODAKLAN -->
+<section id="focus" class="page">
+  <div class="topline">FOCUS TIME ✦</div>
+  <h1>Odaklanma Köşem 🌸</h1>
+  <p class="muted">Şimdi sadece kendine ve dersine odaklan.</p>
+
+  <div class="card">
+    <div class="row">
+      <h2>📐 Geometri</h2>
+      <span class="muted">25 / 5 dk</span>
+    </div>
+
+    <div class="tabs">
+      <button id="workTab" class="selected" onclick="changeMode('work')">✦ Çalışma</button>
+      <button id="breakTab" onclick="changeMode('break')">☕ Mola</button>
+    </div>
+
+    <div class="timer-circle">
+      <svg viewBox="0 0 280 280" aria-hidden="true">
+        <circle class="track" cx="140" cy="140" r="120"/>
+        <circle class="fill" id="ring" cx="140" cy="140" r="120"/>
+      </svg>
+      <div class="timer-inner">
+        <div style="font-size:30px" id="timerEmoji">🌷</div>
+        <div class="time" id="timerText">25:00</div>
+        <div class="muted" id="timerMode">Geometri zamanı</div>
+      </div>
+    </div>
+
+    <div class="timer-buttons">
+      <button class="btn" id="startButton" onclick="toggleTimer()">▶ Başlat</button>
+      <button class="btn light" onclick="resetTimer()">↺ Sıfırla</button>
+    </div>
+    <div class="notice" id="timerStatus">
+      Hazır olduğunda başlayabilirsin ♡
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Bugünkü odaklanmam</h2>
+    <div class="stats">
+      <div class="stat"><strong id="focusSessions">0</strong><small>Seans</small></div>
+      <div class="stat"><strong id="focusMinutes">0</strong><small>Dakika</small></div>
+      <div class="stat"><strong id="focusXP">0</strong><small>XP</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- İSTATİSTİK -->
+<section id="stats" class="page">
+  <div class="topline">MY PROGRESS</div>
+  <h1>İstatistiklerim 📊</h1>
+  <p class="muted">Her küçük ilerleme birikerek büyür.</p>
+
+  <div class="card">
+    <h2>Bu haftaki çalışmalarım</h2>
+    <div class="bar-chart" id="weeklyChart"></div>
+  </div>
+
+  <div class="card">
+    <h2>Genel ilerlemem</h2>
+    <div class="stats">
+      <div class="stat"><strong id="totalSessions">0</strong><small>Seans</small></div>
+      <div class="stat"><strong id="totalMinutes">0</strong><small>Dakika</small></div>
+      <div class="stat"><strong id="totalXP">0</strong><small>XP</small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Çalışma günlüğüm 📖</h2>
+    <div id="history"></div>
+  </div>
+</section>
+
+<!-- KOLEKSİYON -->
+<section id="collection" class="page">
+  <div class="topline">MY LITTLE GARDEN</div>
+  <h1>Koleksiyonum 🌿</h1>
+  <p class="muted">Çalıştıkça kendi küçük bahçeni büyüt.</p>
+
+  <div class="card">
+    <div class="row">
+      <h2>Çiçek bahçem</h2>
+      <span class="muted" id="plantCount">0 / 6</span>
+    </div>
+    <div class="collection" id="plants"></div>
+  </div>
+
+  <div class="card">
+    <h2>⭐ Seviyem</h2>
+    <div class="row">
+      <strong id="levelName">Seviye 1</strong>
+      <span class="muted" id="levelXP">0 XP</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="levelProgress"></div>
+    </div>
+    <p class="muted">Her tamamlanan Pomodoro 25 XP kazandırır.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- ALT MENÜ -->
+<nav class="nav">
+  <button data-page="home" class="active" onclick="openPage('home')"><span class="ico">⌂</span>Ana Sayfa</button>
+  <button data-page="program" onclick="openPage('program')"><span class="ico">▦</span>Programım</button>
+  <button data-page="focus" onclick="openPage('focus')"><span class="ico">◷</span>Odaklan</button>
+  <button data-page="stats" onclick="openPage('stats')"><span class="ico">▥</span>İstatistik</button>
+  <button data-page="collection" onclick="openPage('collection')"><span class="ico">✿</span>Koleksiyon</button>
+</nav>
+
+<!-- KUTLAMA -->
+<div class="modal" id="modal">
+  <div class="popup">
+    <div class="flower" id="popupEmoji">🌷✨</div>
+    <h2 id="popupTitle">Harika iş çıkardın!</h2>
+    <p class="muted" id="popupMessage"></p>
+    <button class="btn full" onclick="closePopup()">Devam et ♡</button>
+  </div>
+</div>
+
+<script>
+const KEY = "myStudySpaceV1";
+const WORK = 25 * 60;
+const BREAK = 5 * 60;
+const C = 2 * Math.PI * 120;
+const $ = id => document.getElementById(id);
+
+const colors = {
+  Geometri:"#c4a3e9",
+  Matematik:"#a99ae0",
+  Fizik:"#9dcbbf",
+  Kimya:"#f2bd93",
+  Biyoloji:"#a5d6a7",
+  Paragraf:"#e8aabb",
+  Edebiyat:"#c8b3da"
+};
+
+function today(d = new Date()) {
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function defaultData() {
+  return {
+    tasks: [
+      {id:1,name:"Üçgenler - 15 soru",subject:"Geometri",done:false,date:today()},
+      {id:2,name:"Fonksiyonlar - konu tekrarı",subject:"Matematik",done:false,date:today()},
+      {id:3,name:"Paragraf - 20 soru",subject:"Paragraf",done:false,date:today()}
+    ],
+    history:[],
+    xp:0
+  };
+}
+
+function load() {
+  try {
+    const value = JSON.parse(localStorage.getItem(KEY));
+    if(value && Array.isArray(value.tasks) && Array.isArray(value.history)) {
+      return {
+        tasks:value.tasks,
+        history:value.history,
+        xp:Number(value.xp)||0
+      };
+    }
+  } catch(e) {}
+  return defaultData();
+}
+
+let db = load();
+
+function save() {
+  try {
+    localStorage.setItem(KEY,JSON.stringify(db));
+  } catch(e) {
+    console.warn("Kayıt yapılamadı",e);
+  }
+}
+
+function openPage(page) {
+  document.querySelectorAll(".page").forEach(el =>
+    el.classList.toggle("active",el.id===page)
+  );
+  document.querySelectorAll(".nav button").forEach(el =>
+    el.classList.toggle("active",el.dataset.page===page)
+  );
+  render();
+  window.scrollTo(0,0);
+}
+
+function makeTask(task) {
+  const row = document.createElement("div");
+  row.className = "task" + (task.done?" done":"");
+
+  const dot = document.createElement("div");
+  dot.className = "dot";
+  dot.style.background = colors[task.subject] || "#b9a2d9";
+
+  const check = document.createElement("input");
+  check.type = "checkbox";
+  check.checked = task.done;
+  check.addEventListener("change",() => {
+    task.done = check.checked;
+    save();
+    render();
+  });
+
+  const label = document.createElement("span");
+  label.textContent = task.subject+" · "+task.name;
+
+  row.append(dot,check,label);
+  return row;
+}
+
+function renderTasks() {
+  const current = db.tasks.filter(t=>t.date===today());
+  const done = current.filter(t=>t.done).length;
+  $("taskCount").textContent = done+" / "+current.length;
+  $("taskProgress").style.width =
+    (current.length?done/current.length*100:0)+"%";
+
+  ["homeTasks","programTasks"].forEach(id=>{
+    const box = $(id);
+    box.replaceChildren();
+    if(!current.length) {
+      const p=document.createElement("p");
+      p.className="muted";
+      p.textContent="Henüz görev eklemedin 🌷";
+      box.append(p);
+    }
+    current.forEach(task=>box.append(makeTask(task)));
+  });
+}
+
+function addTask() {
+  const name = $("taskInput").value.trim();
+  if(!name) {
+    alert("Önce bir görev yazmalısın.");
+    return;
+  }
+  db.tasks.push({
+    id:Date.now(),
+    name,
+    subject:$("taskSubject").value,
+    done:false,
+    date:today()
+  });
+  $("taskInput").value="";
+  save();
+  render();
+}
+
+function todaySessions() {
+  return db.history.filter(h=>h.date===today());
+}
+
+function sumMinutes(items) {
+  return items.reduce((sum,h)=>sum+h.minutes,0);
+}
+
+function renderStats() {
+  const daily=todaySessions();
+  const dailyMinutes=sumMinutes(daily);
+  const allMinutes=sumMinutes(db.history);
+
+  $("homeSessions").textContent=daily.length;
+  $("homeMinutes").textContent=dailyMinutes;
+  $("homeXP").textContent=daily.length*25;
+  $("focusSessions").textContent=daily.length;
+  $("focusMinutes").textContent=dailyMinutes;
+  $("focusXP").textContent=daily.length*25;
+  $("totalSessions").textContent=db.history.length;
+  $("totalMinutes").textContent=allMinutes;
+  $("totalXP").textContent=db.xp;
+
+  renderChart();
+  renderHistory();
+}
+
+function renderChart() {
+  const chart=$("weeklyChart");
+  chart.replaceChildren();
+
+  const dates=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();
+    d.setHours(12,0,0,0);
+    d.setDate(d.getDate()-i);
+    dates.push({
+      key:today(d),
+      label:["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"][d.getDay()]
+    });
+  }
+
+  const values=dates.map(d=>sumMinutes(
+    db.history.filter(h=>h.date===d.key)
+  ));
+  const max=Math.max(25,...values);
+
+  dates.forEach((d,i)=>{
+    const wrap=document.createElement("div");
+    wrap.className="bar-wrap";
+    const bar=document.createElement("div");
+    bar.className="bar";
+    bar.style.height=(values[i]/max*115)+"px";
+    bar.title=values[i]+" dakika";
+    const label=document.createElement("small");
+    label.textContent=d.label;
+    wrap.append(bar,label);
+    chart.append(wrap);
+  });
+}
+
+function renderHistory() {
+  const box=$("history");
+  box.replaceChildren();
+
+  if(!db.history.length) {
+    const p=document.createElement("p");
+    p.className="muted";
+    p.textContent="İlk Pomodoro seansın burada görünecek 🌸";
+    box.append(p);
+    return;
+  }
+
+  db.history.slice(0,30).forEach(h=>{
+    const row=document.createElement("div");
+    row.className="history-item";
+    row.textContent="📐 "+h.subject+" · "+h.minutes+
+      " dk · "+h.date+" "+h.time;
+    box.append(row);
+  });
+}
+
+const plantList=[
+  {emoji:"🌱",name:"İlk filiz",needed:1},
+  {emoji:"🌼",name:"Papatya",needed:3},
+  {emoji:"🪻",name:"Lavanta",needed:5},
+  {emoji:"🌷",name:"Lale",needed:8},
+  {emoji:"🌻",name:"Ayçiçeği",needed:12},
+  {emoji:"🌹",name:"Gül",needed:20}
+];
+
+function renderCollection() {
+  const count=db.history.length;
+  const box=$("plants");
+  box.replaceChildren();
+  let unlocked=0;
+
+  plantList.forEach(p=>{
+    const yes=count>=p.needed;
+    if(yes)unlocked++;
+    const card=document.createElement("div");
+    card.className="plant"+(yes?"":" locked");
+
+    const emoji=document.createElement("div");
+    emoji.className="emoji";
+    emoji.textContent=yes?p.emoji:"🔒";
+
+    const label=document.createElement("small");
+    label.textContent=yes?p.name:p.needed+" seans";
+
+    card.append(emoji,label);
+    box.append(card);
+  });
+
+  $("plantCount").textContent=unlocked+" / "+plantList.length;
+  const level=Math.floor(db.xp/100)+1;
+  $("levelName").textContent="Seviye "+level;
+  $("levelXP").textContent=db.xp+" XP";
+  $("levelProgress").style.width=(db.xp%100)+"%";
+}
+
+function render() {
+  renderTasks();
+  renderStats();
+  renderCollection();
+}
+
+// POMODORO
+let mode="work";
+let remaining=WORK;
+let running=false;
+let endTime=null;
+let interval=null;
+
+function duration() {
+  return mode==="work"?WORK:BREAK;
+}
+
+function updateTimer() {
+  const m=String(Math.floor(remaining/60)).padStart(2,"0");
+  const s=String(remaining%60).padStart(2,"0");
+  $("timerText").textContent=m+":"+s;
+  $("ring").style.strokeDasharray=C;
+  $("ring").style.strokeDashoffset=C*(1-remaining/duration());
+  $("ring").style.stroke=mode==="work"?"#a68bd4":"#94cbb8";
+  $("timerEmoji").textContent=mode==="work"?"🌷":"☕";
+  $("timerMode").textContent=mode==="work"?"Geometri zamanı":"Mola zamanı";
+  $("workTab").classList.toggle("selected",mode==="work");
+  $("breakTab").classList.toggle("selected",mode==="break");
+  $("startButton").textContent=running?"Ⅱ Duraklat":"▶ Başlat";
+  document.title=m+":"+s+" | My Study Space";
+}
+
+function stopTimer() {
+  if(running && endTime!==null) {
+    remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
+  }
+  running=false;
+  endTime=null;
+  clearInterval(interval);
+  interval=null;
+  updateTimer();
+}
+
+function startTimer() {
+  if(running)return;
+  running=true;
+  endTime=Date.now()+remaining*1000;
+  interval=setInterval(tick,250);
+  $("timerStatus").textContent=mode==="work"
+    ?"Şimdi sadece geometriye odaklan ♡"
+    :"Dinlenmeyi de hak ettin 🌿";
+  updateTimer();
+}
+
+function toggleTimer() {
+  if(running) {
+    stopTimer();
+    $("timerStatus").textContent="Sayaç duraklatıldı.";
+  } else {
+    startTimer();
+  }
+}
+
+function resetTimer() {
+  stopTimer();
+  remaining=duration();
+  $("timerStatus").textContent="Yeniden başlayabilirsin ✨";
+  updateTimer();
+}
+
+function changeMode(next,autostart=false) {
+  stopTimer();
+  mode=next;
+  remaining=duration();
+  $("timerStatus").textContent=mode==="work"
+    ?"Yeni bir odaklanma seansı 🌷"
+    :"5 dakikalık mola 🌿";
+  updateTimer();
+  if(autostart)startTimer();
+}
+
+function tick() {
+  if(!running || endTime===null)return;
+  remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
+  if(remaining===0)completeTimer();
+  else updateTimer();
+}
+
+function completeTimer() {
+  const finished=mode;
+  stopTimer();
+  remaining=0;
+  updateTimer();
+
+  if(finished==="work") {
+    const now=new Date();
+    db.history.unshift({
+      id:Date.now(),
+      date:today(now),
+      time:now.toLocaleTimeString("tr-TR",{
+        hour:"2-digit",minute:"2-digit"
+      }),
+      subject:"Geometri",
+      minutes:25
+    });
+    db.xp+=25;
+    save();
+    render();
+    showPopup(
+      "🌷✨",
+      "Harika iş çıkardın!",
+      "25 dakika Geometri çalıştın. +25 XP kazandın! Şimdi 5 dakika mola."
+    );
+    changeMode("break",true);
+  } else {
+    showPopup(
+      "🌸",
+      "Molan tamamlandı!",
+      "Dinlendin! Hazırsan yeni bir Geometri seansına başlayabilirsin."
+    );
+    changeMode("work",false);
+  }
+}
+
+function showPopup(emoji,title,message) {
+  $("popupEmoji").textContent=emoji;
+  $("popupTitle").textContent=title;
+  $("popupMessage").textContent=message;
+  $("modal").classList.add("show");
+}
+
+function closePopup() {
+  $("modal").classList.remove("show");
+}
+
+// Sayfa arka plandayken geçen süreyi doğru hesapla.
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden)tick();
+});
+
+// Sayfa yenilendiğinde görevler ve tamamlanan
+// seanslar korunur. Aktif sayaç ise durur.
+render();
+updateTimer();
+save();
+</script>
+</body>
+</html>
