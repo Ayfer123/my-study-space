@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f8f3fc">
 <title>My Study Space 🌷</title>
+
 <style>
 :root{
   --bg:#f8f3fc;
@@ -371,14 +372,14 @@ h2{font-size:17px;margin:0 0 15px}
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="app">
 
+<!-- ANA SAYFA -->
 <section id="home" class="page active">
   <div class="topline">MY STUDY SPACE ✦</div>
   <h1>Merhaba! 🌷</h1>
-
   <div class="hero">
     <h2>Bugün güzel şeyler başaracağız!</h2>
     <p class="muted">Küçük adımlar, büyük sonuçlar getirir.</p>
@@ -425,18 +426,15 @@ h2{font-size:17px;margin:0 0 15px}
   </button>
 </section>
 
+<!-- HAFTALIK PROGRAM VE KONU TAKİBİ -->
 <section id="program" class="page">
   <div class="topline">PLAN MY WEEK</div>
   <h1>Programım 📅</h1>
   <p class="muted">Haftanı planla, konularını takip et.</p>
 
   <div class="section-tabs">
-    <button id="weeklyTab" class="selected" onclick="setProgramTab('weekly')">
-      Haftalık program
-    </button>
-    <button id="topicsTab" onclick="setProgramTab('topics')">
-      Konu takibi
-    </button>
+    <button id="weeklyTab" class="selected" onclick="setProgramTab('weekly')">Haftalık program</button>
+    <button id="topicsTab" onclick="setProgramTab('topics')">Konu takibi</button>
   </div>
 
   <div id="weeklyPanel">
@@ -506,6 +504,7 @@ h2{font-size:17px;margin:0 0 15px}
   </div>
 </section>
 
+<!-- POMODORO -->
 <section id="focus" class="page">
   <div class="topline">FOCUS TIME ✦</div>
   <h1>Odaklanma Köşem 🌸</h1>
@@ -517,11 +516,10 @@ h2{font-size:17px;margin:0 0 15px}
       <span class="muted">25 / 5 dk</span>
     </div>
     <div class="section-tabs">
-      <button id="workTab" class="selected"
-        onclick="changeMode('work')">✦ Çalışma</button>
-      <button id="breakTab"
-        onclick="changeMode('break')">☕ Mola</button>
+      <button id="workTab" class="selected" onclick="changeMode('work')">✦ Çalışma</button>
+      <button id="breakTab" onclick="changeMode('break')">☕ Mola</button>
     </div>
+
     <div class="timer-circle">
       <svg viewBox="0 0 280 280" aria-hidden="true">
         <circle class="track" cx="140" cy="140" r="120"/>
@@ -533,11 +531,10 @@ h2{font-size:17px;margin:0 0 15px}
         <div class="muted" id="timerMode">Geometri zamanı</div>
       </div>
     </div>
+
     <div class="timer-buttons">
-      <button class="btn" id="startButton"
-        onclick="toggleTimer()">▶ Başlat</button>
-      <button class="btn light"
-        onclick="resetTimer()">↺ Sıfırla</button>
+      <button class="btn" id="startButton" onclick="toggleTimer()">▶ Başlat</button>
+      <button class="btn light" onclick="resetTimer()">↺ Sıfırla</button>
     </div>
     <div class="notice" id="timerStatus">
       Hazır olduğunda başlayabilirsin ♡
@@ -554,6 +551,7 @@ h2{font-size:17px;margin:0 0 15px}
   </div>
 </section>
 
+<!-- İSTATİSTİKLER -->
 <section id="stats" class="page">
   <div class="topline">MY PROGRESS</div>
   <h1>İstatistiklerim 📊</h1>
@@ -579,6 +577,7 @@ h2{font-size:17px;margin:0 0 15px}
   </div>
 </section>
 
+<!-- KOLEKSİYON -->
 <section id="collection" class="page">
   <div class="topline">MY LITTLE GARDEN</div>
   <h1>Koleksiyonum 🌿</h1>
@@ -607,24 +606,16 @@ h2{font-size:17px;margin:0 0 15px}
 
 </div>
 
+<!-- ALT MENÜ -->
 <nav class="nav">
-  <button data-page="home" class="active" onclick="openPage('home')">
-    <span class="ico">⌂</span>Ana Sayfa
-  </button>
-  <button data-page="program" onclick="openPage('program')">
-    <span class="ico">▦</span>Programım
-  </button>
-  <button data-page="focus" onclick="openPage('focus')">
-    <span class="ico">◷</span>Odaklan
-  </button>
-  <button data-page="stats" onclick="openPage('stats')">
-    <span class="ico">▥</span>İstatistik
-  </button>
-  <button data-page="collection" onclick="openPage('collection')">
-    <span class="ico">✿</span>Koleksiyon
-  </button>
+  <button data-page="home" class="active" onclick="openPage('home')"><span class="ico">⌂</span>Ana Sayfa</button>
+  <button data-page="program" onclick="openPage('program')"><span class="ico">▦</span>Programım</button>
+  <button data-page="focus" onclick="openPage('focus')"><span class="ico">◷</span>Odaklan</button>
+  <button data-page="stats" onclick="openPage('stats')"><span class="ico">▥</span>İstatistik</button>
+  <button data-page="collection" onclick="openPage('collection')"><span class="ico">✿</span>Koleksiyon</button>
 </nav>
 
+<!-- KUTLAMA -->
 <div class="modal" id="modal">
   <div class="popup">
     <div class="flower" id="popupEmoji">🌷✨</div>
@@ -635,18 +626,18 @@ h2{font-size:17px;margin:0 0 15px}
 </div>
 
 <script>
-const KEY = "myStudySpaceV1";
-const WORK = 25 * 60;
-const BREAK = 5 * 60;
-const C = 2 * Math.PI * 120;
-const $ = id => document.getElementById(id);
+const KEY="myStudySpaceV1";
+const WORK=25*60;
+const BREAK=5*60;
+const C=2*Math.PI*120;
+const $=id=>document.getElementById(id);
 
-const subjects = [
+const subjects=[
   "Matematik","Geometri","Fizik","Kimya",
   "Biyoloji","Paragraf","Edebiyat"
 ];
 
-const colors = {
+const colors={
   Matematik:"#a99ae0",
   Geometri:"#c4a3e9",
   Fizik:"#9dcbbf",
@@ -656,48 +647,48 @@ const colors = {
   Edebiyat:"#c8b3da"
 };
 
-const days = ["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
-const months = [
+const days=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+const months=[
   "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
   "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
 ];
 
-function dateKey(d = new Date()) {
-  return d.getFullYear() + "-" +
-    String(d.getMonth()+1).padStart(2,"0") + "-" +
+function dateKey(d=new Date()){
+  return d.getFullYear()+"-"+
+    String(d.getMonth()+1).padStart(2,"0")+"-"+
     String(d.getDate()).padStart(2,"0");
 }
 
-function parseDate(s) {
-  const [y,m,d] = s.split("-").map(Number);
+function parseDate(s){
+  const [y,m,d]=s.split("-").map(Number);
   return new Date(y,m-1,d,12);
 }
 
-function addDays(s,n) {
-  const d = parseDate(s);
+function addDays(s,n){
+  const d=parseDate(s);
   d.setDate(d.getDate()+n);
   return dateKey(d);
 }
 
-function monday(s) {
-  const d = parseDate(s);
+function monday(s){
+  const d=parseDate(s);
   d.setDate(d.getDate()-(d.getDay()+6)%7);
   return dateKey(d);
 }
 
-function defaultData() {
+function defaultData(){
   return {
-    tasks: [],
-    history: [],
-    xp: 0,
-    topics: []
+    tasks:[],
+    history:[],
+    xp:0,
+    topics:[]
   };
 }
 
-function load() {
-  try {
-    const v = JSON.parse(localStorage.getItem(KEY));
-    if(v && Array.isArray(v.tasks) && Array.isArray(v.history)) {
+function load(){
+  try{
+    const v=JSON.parse(localStorage.getItem(KEY));
+    if(v&&Array.isArray(v.tasks)&&Array.isArray(v.history)){
       return {
         tasks:v.tasks,
         history:v.history,
@@ -705,38 +696,34 @@ function load() {
         topics:Array.isArray(v.topics)?v.topics:[]
       };
     }
-  } catch(e) {
-    console.warn("Kayıt okunamadı",e);
-  }
+  }catch(e){}
   return defaultData();
 }
 
-let db = load();
-let selectedDate = dateKey();
-let programTab = "weekly";
+let db=load();
+let selectedDate=dateKey();
+let programTab="weekly";
 
-function save() {
-  try {
+function save(){
+  try{
     localStorage.setItem(KEY,JSON.stringify(db));
-  } catch(e) {
+  }catch(e){
     console.warn("Kayıt yapılamadı",e);
   }
 }
 
-function openPage(page) {
-  document.querySelectorAll(".page").forEach(el => {
+function openPage(page){
+  document.querySelectorAll(".page").forEach(el=>{
     el.classList.toggle("active",el.id===page);
   });
-
-  document.querySelectorAll(".nav button").forEach(el => {
+  document.querySelectorAll(".nav button").forEach(el=>{
     el.classList.toggle("active",el.dataset.page===page);
   });
-
   render();
   window.scrollTo(0,0);
 }
 
-function setProgramTab(tab) {
+function setProgramTab(tab){
   programTab=tab;
   $("weeklyPanel").style.display=tab==="weekly"?"block":"none";
   $("topicsPanel").style.display=tab==="topics"?"block":"none";
@@ -745,13 +732,13 @@ function setProgramTab(tab) {
   render();
 }
 
-function populateSelects() {
-  ["taskSubject","topicSubject"].forEach(id => {
-    subjects.forEach(s => {
-      const option=document.createElement("option");
-      option.value=s;
-      option.textContent=s;
-      $(id).append(option);
+function populateSelects(){
+  ["taskSubject","topicSubject"].forEach(id=>{
+    subjects.forEach(s=>{
+      const o=document.createElement("option");
+      o.value=s;
+      o.textContent=s;
+      $(id).append(o);
     });
   });
 
@@ -760,43 +747,43 @@ function populateSelects() {
   all.textContent="Tüm dersler";
   $("topicFilter").append(all);
 
-  subjects.forEach(s => {
-    const option=document.createElement("option");
-    option.value=s;
-    option.textContent=s;
-    $("topicFilter").append(option);
+  subjects.forEach(s=>{
+    const o=document.createElement("option");
+    o.value=s;
+    o.textContent=s;
+    $("topicFilter").append(o);
   });
 }
 
-function moveWeek(direction) {
+function moveWeek(direction){
   selectedDate=addDays(monday(selectedDate),direction*7);
   render();
 }
 
-function goToday() {
+function goToday(){
   selectedDate=dateKey();
   render();
 }
 
-function selectDay(key) {
+function selectDay(key){
   selectedDate=key;
   render();
 }
 
-function renderWeek() {
+function renderWeek(){
   const start=monday(selectedDate);
   const end=addDays(start,6);
   const a=parseDate(start);
   const b=parseDate(end);
 
-  $("weekLabel").textContent =
+  $("weekLabel").textContent=
     a.getDate()+" "+months[a.getMonth()]+" – "+
     b.getDate()+" "+months[b.getMonth()];
 
   const box=$("weekDays");
   box.replaceChildren();
 
-  for(let i=0;i<7;i++) {
+  for(let i=0;i<7;i++){
     const key=addDays(start,i);
     const button=document.createElement("button");
 
@@ -807,16 +794,16 @@ function renderWeek() {
     const label=document.createElement("span");
     label.textContent=days[i];
 
-    const number=document.createElement("strong");
-    number.textContent=parseDate(key).getDate();
+    const num=document.createElement("strong");
+    num.textContent=parseDate(key).getDate();
 
-    button.append(label,number);
+    button.append(label,num);
     button.onclick=()=>selectDay(key);
     box.append(button);
   }
 }
 
-function makeTask(task,canDelete=false) {
+function makeTask(task,canDelete=false){
   const row=document.createElement("div");
   row.className="task"+(task.done?" done":"");
 
@@ -828,7 +815,7 @@ function makeTask(task,canDelete=false) {
   check.type="checkbox";
   check.checked=task.done;
 
-  check.addEventListener("change",function() {
+  check.addEventListener("change",()=>{
     task.done=check.checked;
     save();
     render();
@@ -840,19 +827,19 @@ function makeTask(task,canDelete=false) {
 
   row.append(dot,check,label);
 
-  if(canDelete) {
+  if(canDelete){
     const del=document.createElement("button");
     del.type="button";
     del.className="delete";
     del.textContent="×";
     del.setAttribute("aria-label","Görevi sil");
 
-    del.addEventListener("click",function(event) {
+    del.addEventListener("click",event=>{
       event.preventDefault();
       event.stopPropagation();
 
-      // Görevi benzersiz ID ile sil.
-      db.tasks=db.tasks.filter(t=>t.id!==task.id);
+      // ID bulunamasa bile seçili nesneyi silebilir.
+      db.tasks=db.tasks.filter(t=>t!==task);
 
       save();
       render();
@@ -864,12 +851,12 @@ function makeTask(task,canDelete=false) {
   return row;
 }
 
-function renderTaskList(id,date,canDelete) {
+function renderTaskList(id,date,canDelete){
   const list=db.tasks.filter(t=>t.date===date);
   const box=$(id);
   box.replaceChildren();
 
-  if(!list.length) {
+  if(!list.length){
     const p=document.createElement("p");
     p.className="muted";
     p.textContent="Bu güne henüz görev eklenmedi 🌷";
@@ -880,7 +867,7 @@ function renderTaskList(id,date,canDelete) {
   return list;
 }
 
-function renderTasks() {
+function renderTasks(){
   const current=renderTaskList("homeTasks",dateKey(),false);
   const done=current.filter(t=>t.done).length;
 
@@ -911,17 +898,13 @@ function renderTasks() {
   $("dayProgressFill").style.width=percent+"%";
 }
 
-function addTask() {
+function addTask(){
   const name=$("taskInput").value.trim();
-
-  if(!name) {
-    alert("Bir görev yazmalısın.");
-    return;
-  }
+  if(!name)return alert("Bir görev yazmalısın.");
 
   db.tasks.push({
     id:Date.now()+Math.random(),
-    name:name,
+    name,
     subject:$("taskSubject").value,
     done:false,
     date:selectedDate
@@ -932,17 +915,13 @@ function addTask() {
   render();
 }
 
-function addTopic() {
+function addTopic(){
   const name=$("topicInput").value.trim();
-
-  if(!name) {
-    alert("Önce bir konu adı yaz.");
-    return;
-  }
+  if(!name)return alert("Önce bir konu adı yaz.");
 
   db.topics.push({
     id:Date.now()+Math.random(),
-    name:name,
+    name,
     subject:$("topicSubject").value,
     status:"not-started"
   });
@@ -952,14 +931,13 @@ function addTopic() {
   render();
 }
 
-function topicPercent(list) {
-  if(!list.length)return 0;
-  return Math.round(
-    list.filter(t=>t.status==="done").length/list.length*100
-  );
+function topicPercent(list){
+  return list.length
+    ?Math.round(list.filter(t=>t.status==="done").length/list.length*100)
+    :0;
 }
 
-function renderTopics() {
+function renderTopics(){
   const filter=$("topicFilter").value;
   const list=db.topics.filter(
     t=>filter==="all"||t.subject===filter
@@ -968,14 +946,14 @@ function renderTopics() {
   const box=$("topicList");
   box.replaceChildren();
 
-  if(!list.length) {
+  if(!list.length){
     const p=document.createElement("p");
     p.className="muted";
     p.textContent="Henüz konu eklenmedi 📚";
     box.append(p);
   }
 
-  list.forEach(t => {
+  list.forEach(t=>{
     const row=document.createElement("div");
     row.className="topic";
 
@@ -992,16 +970,16 @@ function renderTopics() {
       ["not-started","Başlanmadı"],
       ["progress","Çalışılıyor"],
       ["done","Tamamlandı ✓"]
-    ].forEach(([value,label]) => {
-      const option=document.createElement("option");
-      option.value=value;
-      option.textContent=label;
-      select.append(option);
+    ].forEach(([value,label])=>{
+      const o=document.createElement("option");
+      o.value=value;
+      o.textContent=label;
+      select.append(o);
     });
 
     select.value=t.status;
 
-    select.addEventListener("change",function() {
+    select.addEventListener("change",()=>{
       t.status=select.value;
       save();
       render();
@@ -1013,11 +991,11 @@ function renderTopics() {
     del.textContent="×";
     del.setAttribute("aria-label","Konuyu sil");
 
-    del.addEventListener("click",function(event) {
+    del.addEventListener("click",event=>{
       event.preventDefault();
       event.stopPropagation();
 
-      db.topics=db.topics.filter(x=>x.id!==t.id);
+      db.topics=db.topics.filter(x=>x!==t);
 
       save();
       render();
@@ -1046,7 +1024,7 @@ function renderTopics() {
   const subjectBox=$("subjectProgress");
   subjectBox.replaceChildren();
 
-  subjects.forEach(s => {
+  subjects.forEach(s=>{
     const arr=db.topics.filter(t=>t.subject===s);
     if(!arr.length)return;
 
@@ -1080,21 +1058,21 @@ function renderTopics() {
   });
 }
 
-function dailySessions() {
+function dailySessions(){
   return db.history.filter(h=>h.date===dateKey());
 }
 
-function sumMinutes(items) {
+function sumMinutes(items){
   return items.reduce(
     (sum,h)=>sum+(Number(h.minutes)||0),0
   );
 }
 
-function renderStats() {
+function renderStats(){
   const daily=dailySessions();
   const dailyXP=daily.length*25;
 
-  const values=[
+  [
     ["homeSessions",daily.length],
     ["homeMinutes",sumMinutes(daily)],
     ["homeXP",dailyXP],
@@ -1104,9 +1082,7 @@ function renderStats() {
     ["totalSessions",db.history.length],
     ["totalMinutes",sumMinutes(db.history)],
     ["totalXP",db.xp]
-  ];
-
-  values.forEach(([id,value])=>{
+  ].forEach(([id,value])=>{
     $(id).textContent=value;
   });
 
@@ -1114,13 +1090,13 @@ function renderStats() {
   renderHistory();
 }
 
-function renderChart() {
+function renderChart(){
   const chart=$("weeklyChart");
   chart.replaceChildren();
 
   const dates=[];
 
-  for(let i=6;i>=0;i--) {
+  for(let i=6;i>=0;i--){
     const d=parseDate(dateKey());
     d.setDate(d.getDate()-i);
     dates.push({
@@ -1152,11 +1128,11 @@ function renderChart() {
   });
 }
 
-function renderHistory() {
+function renderHistory(){
   const box=$("history");
   box.replaceChildren();
 
-  if(!db.history.length) {
+  if(!db.history.length){
     const p=document.createElement("p");
     p.className="muted";
     p.textContent="İlk Pomodoro seansın burada görünecek 🌸";
@@ -1182,7 +1158,7 @@ const plants=[
   ["🌹","Gül",20]
 ];
 
-function renderCollection() {
+function renderCollection(){
   const count=db.history.length;
   const box=$("plants");
   box.replaceChildren();
@@ -1216,25 +1192,25 @@ function renderCollection() {
   $("levelProgress").style.width=(db.xp%100)+"%";
 }
 
-function render() {
+function render(){
   renderTasks();
   renderTopics();
   renderStats();
   renderCollection();
 }
 
-// POMODORO
+// POMODORO SAYACI
 let mode="work";
 let remaining=WORK;
 let running=false;
 let endTime=null;
 let interval=null;
 
-function duration() {
+function duration(){
   return mode==="work"?WORK:BREAK;
 }
 
-function updateTimer() {
+function updateTimer(){
   const m=String(Math.floor(remaining/60)).padStart(2,"0");
   const s=String(remaining%60).padStart(2,"0");
 
@@ -1265,8 +1241,8 @@ function updateTimer() {
   document.title=m+":"+s+" | My Study Space";
 }
 
-function stopTimer() {
-  if(running&&endTime!==null) {
+function stopTimer(){
+  if(running&&endTime!==null){
     remaining=Math.max(
       0,Math.ceil((endTime-Date.now())/1000)
     );
@@ -1279,7 +1255,7 @@ function stopTimer() {
   updateTimer();
 }
 
-function startTimer() {
+function startTimer(){
   if(running)return;
 
   running=true;
@@ -1294,16 +1270,16 @@ function startTimer() {
   updateTimer();
 }
 
-function toggleTimer() {
-  if(running) {
+function toggleTimer(){
+  if(running){
     stopTimer();
     $("timerStatus").textContent="Sayaç duraklatıldı.";
-  } else {
+  }else{
     startTimer();
   }
 }
 
-function resetTimer() {
+function resetTimer(){
   stopTimer();
   remaining=duration();
   $("timerStatus").textContent=
@@ -1311,7 +1287,7 @@ function resetTimer() {
   updateTimer();
 }
 
-function changeMode(next,autostart=false) {
+function changeMode(next,autostart=false){
   stopTimer();
   mode=next;
   remaining=duration();
@@ -1325,7 +1301,7 @@ function changeMode(next,autostart=false) {
   if(autostart)startTimer();
 }
 
-function tick() {
+function tick(){
   if(!running||endTime===null)return;
 
   remaining=Math.max(
@@ -1336,14 +1312,14 @@ function tick() {
   else updateTimer();
 }
 
-function completeTimer() {
+function completeTimer(){
   const finished=mode;
 
   stopTimer();
   remaining=0;
   updateTimer();
 
-  if(finished==="work") {
+  if(finished==="work"){
     const now=new Date();
 
     db.history.unshift({
@@ -1368,7 +1344,7 @@ function completeTimer() {
     );
 
     changeMode("break",true);
-  } else {
+  }else{
     showPopup(
       "🌸",
       "Molan tamamlandı!",
@@ -1379,14 +1355,14 @@ function completeTimer() {
   }
 }
 
-function showPopup(emoji,title,message) {
+function showPopup(emoji,title,message){
   $("popupEmoji").textContent=emoji;
   $("popupTitle").textContent=title;
   $("popupMessage").textContent=message;
   $("modal").classList.add("show");
 }
 
-function closePopup() {
+function closePopup(){
   $("modal").classList.remove("show");
 }
 
